@@ -1,0 +1,7 @@
+// Huff grammar definition for Pest
+huff = { SOI ~ (include_directive | comment)* ~ EOI }
+instruction = { identifier ~ "(" ~ (identifier | number)? ~ ")" }
+include_directive = { "#include" ~ (!NEWLINE ~ ANY)* ~ NEWLINE }
+identifier = { ASCII_ALPHANUMERIC+ }
+number = { ASCII_DIGIT+ }
+comment = { "//" ~ (!NEWLINE ~ ANY)* ~ NEWLINE }
