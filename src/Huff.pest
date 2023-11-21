@@ -1,5 +1,5 @@
 // Huff grammar definition for Pest
-huff = { SOI ~ (include_directive | define_directive | comment)* ~ EOI }
+huff = { SOI ~ (include_directive | define_directive | comments)* ~ EOI }
 // and instruction could be a macro also?
 instruction = { (hexa ~ opcode ~ constant_definition ~ NEWLINE)+ }
 opcode = { "add" | "sub" | "return" | "stop" }
@@ -8,5 +8,7 @@ define_directive = { "#define" ~ (!NEWLINE ~ ANY)* ~ NEWLINE }
 hexa = { "#include" ~ ASCII_ALPHANUMERIC+ }
 number = { ASCII_DIGIT+ }
 constant_definition = { "[" ~ ASCII_ALPHANUMERIC+ ~ "]" }
+
+comments = { comment | commentblock }
 comment = { "//" ~ (!NEWLINE ~ ANY)* ~ (NEWLINE | EOI) }
 commentblock = { "/*" ~ (!NEWLINE ~ ANY)* ~ "*/" }
